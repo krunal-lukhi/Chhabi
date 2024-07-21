@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ElasticSearchClientFactoryImpl implements ElasticSearchClientFactory {
 
-    @Value(" ${elasticsearch.host}")
+    @Value("${elasticsearch.host}")
     private String host;
     @Value("${elasticsearch.port}")
     private int port;

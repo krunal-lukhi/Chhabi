@@ -1,7 +1,7 @@
 package com.gj4.chhabi.fwk.elasticsearch;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.json.SimpleJsonpMapper;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import org.elasticsearch.client.RestClient;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
@@ -25,7 +25,7 @@ public class ElasticSearchTemplateFactoryImpl implements ElasticSearchTemplateFa
     public ElasticsearchTemplate getTemplate() {
         if (elasticsearchTemplate == null) {
             RestClient client = elasticSearchClientFactory.getClient();
-            RestClientTransport restClientTransport = new RestClientTransport(client, new SimpleJsonpMapper());
+            RestClientTransport restClientTransport = new RestClientTransport(client, new JacksonJsonpMapper());
             ElasticsearchClient elasticsearchClient = new ElasticsearchClient(restClientTransport);
             return new ElasticsearchTemplate(elasticsearchClient);
         }

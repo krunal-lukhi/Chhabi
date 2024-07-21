@@ -1,17 +1,19 @@
 package com.gj4.chhabi.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * @author Krunal Lukhi
  * @since 21/07/24
  */
-public class BaseBean {
+public class BaseEntity {
+    @Id
     private String id;
     private String createdBy;
     private String updatedBy;
     private String deletedBy;
-    private Long updateTime;
-    private Long createdTime;
-
+    private Long updateTime = System.currentTimeMillis();
+    private Long createdTime = System.currentTimeMillis();
 
     public String getId() {
         return id;
