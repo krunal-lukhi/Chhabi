@@ -9,7 +9,7 @@ import java.util.Set;
  * @since 21/07/24
  */
 @Document(indexName = "tagged_image")
-public class TaggedImage extends BaseBean implements ESEntity{
+public class TaggedImage extends BaseEntity implements ESEntity{
     private String imageUrl;
     private Set<String> tags;
 
