@@ -6,10 +6,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author TedaMeda
  * @since 7/28/2024
  */
-@Document(collection = "google_drive_info")
-public class GoogleDriveInfo extends BaseEntity implements MongoEntity{
+@Document
+public class DriveInfo extends BaseEntity implements MongoEntity {
+
+    private String driveProvider;
     private String url;
     private double size;
+
+    public String getDriveProvider() {
+        return driveProvider;
+    }
+
+    public void setDriveProvider(String driveProvider) {
+        this.driveProvider = driveProvider;
+    }
 
     public String getUrl() {
         return url;

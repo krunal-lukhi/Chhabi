@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author Krunal Lukhi
  * @since 21/07/24
  */
-public class ChabbiStringUtils extends StringUtils {
+public class ChhabiStringUtils extends StringUtils {
 
     public static boolean isBlank(String input) {
         return StringUtils.isBlank(input);
@@ -14,5 +14,9 @@ public class ChabbiStringUtils extends StringUtils {
 
     public static boolean isNotBlank(String input) {
         return !isBlank(input);
+    }
+
+    public static String convertToCamelCase(String input){
+        return input.substring(0, 1).toLowerCase() + input.substring(1);
     }
 }

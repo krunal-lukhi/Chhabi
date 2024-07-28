@@ -3,7 +3,7 @@ package com.gj4.chhabi.fwk.elasticsearch;
 import com.gj4.chhabi.fwk.FwkUtils;
 import com.gj4.chhabi.fwk.crud.CrudService;
 import com.gj4.chhabi.model.ESEntity;
-import com.gj4.chhabi.util.ChabbiStringUtils;
+import com.gj4.chhabi.util.ChhabiStringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
@@ -25,7 +25,7 @@ public class ElasticSearchService<T extends ESEntity> implements CrudService<T> 
 
     public T create(T object) {
         String id = object.getId();
-        if (ChabbiStringUtils.isBlank(id)) {
+        if (ChhabiStringUtils.isBlank(id)) {
             object.setId(FwkUtils.newObjectId());
         }
         Document annotation = AnnotationUtils.findAnnotation(clazz, Document.class);

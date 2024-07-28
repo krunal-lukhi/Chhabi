@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
  * @since 21/07/24
  */
 public class BaseEntity {
+    public static final String ID = "id";
     @Id
     private String id;
     private String createdBy;

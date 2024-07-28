@@ -13,15 +13,14 @@ import org.springframework.stereotype.Service;
  * @since 7/28/2024
  */
 @Service
-public class MongoClientFactoryImpl implements MongoClientFactory{
+public class MongoClientFactoryImpl implements MongoClientFactory {
     private MongoClient mongoClient;
     @Value("${mongodb.connection.string}")
     private String mongoConnectionString;
 
-//    TODO: Revisite for mongo Driver Information
     @Override
     public MongoClient getClient() {
-        if(mongoClient==null){
+        if (mongoClient == null) {
             MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(new ConnectionString(mongoConnectionString)).build();
             MongoDriverInformation mongoDriverInformation = MongoDriverInformation.builder().build();
 

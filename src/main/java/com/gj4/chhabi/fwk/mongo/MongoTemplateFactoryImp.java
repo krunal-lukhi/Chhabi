@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @since 7/28/2024
  */
 @Service
-public class MongoTemplateFactoryImp implements MongoTemplateFactory{
+public class MongoTemplateFactoryImp implements MongoTemplateFactory {
     private MongoTemplate mongoTemplate;
     @Value("${mongodb.database}")
     private String databaseName;
@@ -21,7 +21,7 @@ public class MongoTemplateFactoryImp implements MongoTemplateFactory{
 
     @Override
     public MongoTemplate getTemplate() {
-        if(mongoTemplate==null){
+        if (mongoTemplate == null) {
             return mongoTemplate = new MongoTemplate(mongoClientFactory.getClient(), databaseName);
         }
         return mongoTemplate;
