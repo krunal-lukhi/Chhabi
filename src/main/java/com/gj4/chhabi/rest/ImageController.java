@@ -25,4 +25,6 @@ public class ImageController {
     public void upload(@RequestParam("file") MultipartFile file, @RequestParam("tags") Set<String> tags) {
         taggedImageService.processImage(tags, file);
     }
+
+
 }

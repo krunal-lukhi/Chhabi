@@ -1,4 +1,4 @@
-package com.gj4.chhabi.config;
+package com.gj4.chhabi.fwk.elasticsearch;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
