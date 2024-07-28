@@ -12,6 +12,7 @@ import java.util.Set;
 public class TaggedImage extends BaseEntity implements ESEntity{
     private String imageUrl;
     private Set<String> tags;
+    private String imageId;
 
     public String getImageUrl() {
         return imageUrl;
@@ -27,5 +28,13 @@ public class TaggedImage extends BaseEntity implements ESEntity{
 
     public void setTags(Set<String> tags) {
         this.tags = tags;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 }
