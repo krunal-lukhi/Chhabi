@@ -9,6 +9,13 @@ public class UploadResponse {
     private String url;
     private String identifier;
 
+    public UploadResponse() {
+    }
+
+    public UploadResponse(String identifier) {
+        this.identifier = identifier;
+    }
+
     public String getUrl() {
         return url;
     }

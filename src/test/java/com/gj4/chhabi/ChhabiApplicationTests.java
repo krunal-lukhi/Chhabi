@@ -5,7 +5,7 @@ import com.gj4.chhabi.fwk.elasticsearch.ElasticSearchService;
 import com.gj4.chhabi.fwk.elasticsearch.ElasticSearchServiceFactory;
 import com.gj4.chhabi.fwk.mongo.MongoService;
 import com.gj4.chhabi.fwk.mongo.MongoServiceFactory;
-import com.gj4.chhabi.model.DriveInfo;
+import com.gj4.chhabi.model.CloudStorageMetadata;
 import com.gj4.chhabi.model.TaggedImage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +33,10 @@ class ChhabiApplicationTests extends IntegrationTest {
 
     @Test
     void mongoServiceTest(){
-        MongoService<DriveInfo> service = mongoServiceFactory.lookup(DriveInfo.class);
-        DriveInfo driveInfo = new DriveInfo();
-        driveInfo.setUrl("https://google-drive.com/");
-        driveInfo.setSize(15);
-        service.create(driveInfo);
+        MongoService<CloudStorageMetadata> service = mongoServiceFactory.lookup(CloudStorageMetadata.class);
+        CloudStorageMetadata cloudStorageMetadata = new CloudStorageMetadata();
+        cloudStorageMetadata.setUrl("https://google-drive.com/");
+        cloudStorageMetadata.setSize(15);
+        service.create(cloudStorageMetadata);
     }
 }
