@@ -1,6 +1,7 @@
 package com.gj4.chhabi.fwk.elasticsearch;
 
 import com.gj4.chhabi.fwk.FwkUtils;
+import com.gj4.chhabi.fwk.crud.CrudService;
 import com.gj4.chhabi.model.ESEntity;
 import com.gj4.chhabi.util.ChabbiStringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -13,7 +14,7 @@ import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
  * @author Krunal Lukhi
  * @since 21/07/24
  */
-public class ElasticSearchService<T extends ESEntity> {
+public class ElasticSearchService<T extends ESEntity> implements CrudService<T> {
     private final ElasticSearchTemplateFactory elasticSearchTemplateFactory;
     private final Class<T> clazz;
 
