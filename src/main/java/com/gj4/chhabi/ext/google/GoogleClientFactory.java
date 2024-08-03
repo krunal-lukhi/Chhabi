@@ -16,6 +16,7 @@ public class GoogleClientFactory implements SmartCloudStorageClientFactory<Drive
     private final MongoService<CloudStorageMetadata> driveInfoMongoService;
     private Drive drive;
 
+
     public GoogleClientFactory(MongoServiceFactory mongoServiceFactory) {
         this.driveInfoMongoService = mongoServiceFactory.lookup(CloudStorageMetadata.class);
     }
@@ -23,8 +24,8 @@ public class GoogleClientFactory implements SmartCloudStorageClientFactory<Drive
     @Override
     public Drive getClient() {
         if (drive == null) {
-            CloudStorageMetadata cloudStorageMetadata = geOptimalDrive();
-            return drive = new GoogleDriveApiClient(cloudStorageMetadata.getApiKey()).getDrive();
+//            CloudStorageMetadata cloudStorageMetadata = geOptimalDrive();
+            return drive = new GoogleDriveApiClient().getDrive();
         }
         return drive;
     }
