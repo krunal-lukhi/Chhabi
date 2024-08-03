@@ -1,6 +1,7 @@
 package com.gj4.chhabi;
 
 import com.gj4.chhabi.config.IntegrationTest;
+import com.gj4.chhabi.ext.commons.CloundStorageProvider;
 import com.gj4.chhabi.ext.google.FileBuilder;
 import com.gj4.chhabi.ext.google.GoogleDriveService;
 import com.gj4.chhabi.fwk.commons.UniversalConstants;
@@ -77,5 +78,15 @@ class ChhabiApplicationTests extends IntegrationTest {
         System.out.println(fileOutput.getId());
         System.out.println(fileOutput.getWebViewLink());
         System.out.println(fileOutput.getWebContentLink());
+    }
+
+    @Test
+    public void createCloudStorageMetadata(){
+        CloudStorageMetadata cloudStorageMetadata = new CloudStorageMetadata();
+        cloudStorageMetadata.setFolderId("");
+        cloudStorageMetadata.setTotalSize(16106127360.0);
+        cloudStorageMetadata.setFolderId("1-Yo4Rw7fJZv2o1CpexDtdp-0VKkWpGgh");
+        cloudStorageMetadata.setProvider(CloundStorageProvider.GOOGLE.name());
+        mongoServiceFactory.lookup(CloudStorageMetadata.class).create(cloudStorageMetadata);
     }
 }

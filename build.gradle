@@ -29,6 +29,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
 }
 tasks.named('test') {
 	useJUnitPlatform()

@@ -1,5 +1,6 @@
 package com.gj4.chhabi.ext.google;
 
+import com.gj4.chhabi.ext.commons.AbstractCloudStorageService;
 import com.gj4.chhabi.ext.commons.CloudStorageConstants;
 import com.gj4.chhabi.ext.commons.CloudStorageConstants.GoogleConstants.Fields;
 import com.gj4.chhabi.ext.commons.CloudStorageService;
@@ -26,7 +27,7 @@ import static com.gj4.chhabi.util.ChhabiStringUtils.joinKeys;
  * @since 28/07/24
  */
 @Service
-public class GoogleDriveService implements CloudStorageService {
+public class GoogleDriveService extends AbstractCloudStorageService {
 
     private final CloudStorageMetadataService cloudStorageMetadataService;
     private final GoogleClientFactory clientFactory;
@@ -37,13 +38,13 @@ public class GoogleDriveService implements CloudStorageService {
     }
 
     @Override
-    public UploadResponse uploadFile(UploadRequest uploadRequest) throws IOException {
+    public UploadResponse doUpload(UploadRequest uploadRequest) throws IOException {
         CloudStorageMetadata cloudStorageMetadata = cloudStorageMetadataService.findOptimalDrive(storageProvider());
         return uploadFile(uploadRequest, cloudStorageMetadata);
     }
 
     @Override
-    public UploadResponse uploadFile(UploadRequest uploadRequest, CloudStorageMetadata cloudStorageMetadata) throws IOException {
+    public UploadResponse doUpload(UploadRequest uploadRequest, CloudStorageMetadata cloudStorageMetadata) throws IOException {
         Drive drive = clientFactory.getClient();
         File fileMetadata = createMetadata(uploadRequest, cloudStorageMetadata);
 
