@@ -48,8 +48,8 @@ class ChhabiApplicationTests extends IntegrationTest {
     void mongoServiceTest(){
         MongoService<CloudStorageMetadata> service = mongoServiceFactory.lookup(CloudStorageMetadata.class);
         CloudStorageMetadata cloudStorageMetadata = new CloudStorageMetadata();
-        cloudStorageMetadata.setUrl("https://google-drive.com/");
-        cloudStorageMetadata.setSize(15);
+        cloudStorageMetadata.setFolderId("https://google-drive.com/");
+        cloudStorageMetadata.setTotalSize(15);
         service.create(cloudStorageMetadata);
     }
 

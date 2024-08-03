@@ -16,7 +16,11 @@ public class ChhabiStringUtils extends StringUtils {
         return !isBlank(input);
     }
 
-    public static String convertToCamelCase(String input){
+    public static String convertToCamelCase(String input) {
         return input.substring(0, 1).toLowerCase() + input.substring(1);
+    }
+
+    public static String joinKeys(String seperator, String... keys) {
+        return join(keys, seperator);
     }
 }

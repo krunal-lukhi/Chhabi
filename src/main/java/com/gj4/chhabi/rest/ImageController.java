@@ -26,5 +26,4 @@ public class ImageController {
         taggedImageService.processImage(tags, file);
     }
 
-
 }

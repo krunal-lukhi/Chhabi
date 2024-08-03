@@ -1,10 +1,15 @@
 package com.gj4.chhabi.ext.google;
 
+import com.gj4.chhabi.ext.commons.CloudStorageConstants;
+import com.gj4.chhabi.ext.commons.CloudStorageConstants.GoogleConstants.Fields;
 import com.gj4.chhabi.ext.commons.CloudStorageService;
 import com.gj4.chhabi.ext.commons.CloundStorageProvider;
-import com.gj4.chhabi.ext.commons.MimeType;
+import com.gj4.chhabi.fwk.commons.StorageNotAvailableException;
+import com.gj4.chhabi.fwk.commons.UniversalConstants;
 import com.gj4.chhabi.fwk.upload.UploadRequest;
 import com.gj4.chhabi.fwk.upload.UploadResponse;
+import com.gj4.chhabi.model.CloudStorageMetadata;
+import com.gj4.chhabi.service.CloudStorageMetadataService;
 import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
@@ -13,6 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.gj4.chhabi.ext.commons.CloudStorageConstants.GoogleConstants.Fields.*;
+import static com.gj4.chhabi.util.ChhabiStringUtils.joinKeys;
+
 /**
  * @author Krunal Lukhi
  * @since 28/07/24
@@ -20,31 +28,69 @@ import java.io.IOException;
 @Service
 public class GoogleDriveService implements CloudStorageService {
 
-    private GoogleClientFactory clientFactory;
+    private final CloudStorageMetadataService cloudStorageMetadataService;
+    private final GoogleClientFactory clientFactory;
+
+    public GoogleDriveService(CloudStorageMetadataService cloudStorageMetadataService, GoogleClientFactory clientFactory) {
+        this.cloudStorageMetadataService = cloudStorageMetadataService;
+        this.clientFactory = clientFactory;
+    }
 
     @Override
     public UploadResponse uploadFile(UploadRequest uploadRequest) throws IOException {
-        Drive drive = clientFactory.getClient();
-        File fileMetadata = FileBuilder.builder()
-                .name("Test")
-                .parent("1-Yo4Rw7fJZv2o1CpexDtdp-0VKkWpGgh")
-                .mimeType(MimeType.FOLDER).build();
-
-        FileContent fileContent = new FileContent(uploadRequest.getFileType(), uploadRequest.getFile());
-        File file = drive.files().create(fileMetadata, fileContent)
-                .setFields("id, name, webContentLink, webViewLink")
-                .execute();
-        setPermissionsToFile(drive, file.getId());
-        return new UploadResponse(file.getId());
+        CloudStorageMetadata cloudStorageMetadata = cloudStorageMetadataService.findOptimalDrive(storageProvider());
+        return uploadFile(uploadRequest, cloudStorageMetadata);
     }
 
-    private void setPermissionsToFile(Drive drive, String id) throws IOException {
-        Permission permission = new Permission().setType("user").setRole("writer").setEmailAddress("ronakmevada6102@gmail.com");
-        drive.permissions().create(id, permission).setFields("id").execute();
+    @Override
+    public UploadResponse uploadFile(UploadRequest uploadRequest, CloudStorageMetadata cloudStorageMetadata) throws IOException {
+        Drive drive = clientFactory.getClient();
+        File fileMetadata = createMetadata(uploadRequest, cloudStorageMetadata);
+
+        FileContent fileContent = createContent(uploadRequest);
+        File file = createFile(drive, fileMetadata, fileContent);
+        Permission permission = setPermissionsToFile(drive, file);
+        return convertToResponse(file, permission);
     }
 
     @Override
     public String storageProvider() {
         return CloundStorageProvider.GOOGLE.name();
     }
+
+    /***********************************************************************************************************
+     *                                           PRIVATE METHODS                                                                            *
+     ***********************************************************************************************************/
+
+    private UploadResponse convertToResponse(File file, Permission permission) {
+        UploadResponse uploadResponse = new UploadResponse();
+        uploadResponse.setIdentifier(file.getId());
+        return uploadResponse;
+    }
+
+    private File createFile(Drive drive, File fileMetadata, FileContent fileContent) throws IOException {
+        return drive.files().create(fileMetadata, fileContent)
+                .setFields(joinKeys(UniversalConstants.COMMA, id, name, webContentLink, webViewLink))
+                .execute();
+    }
+
+    private FileContent createContent(UploadRequest uploadRequest) {
+        return new FileContent(uploadRequest.getFileType().getType(), uploadRequest.getFile());
+    }
+
+    private File createMetadata(UploadRequest uploadRequest, CloudStorageMetadata cloudStorageMetadata) {
+        if (cloudStorageMetadata == null) {
+            throw new StorageNotAvailableException("Pela Storage to laav mafatiya", storageProvider());
+        }
+        return FileBuilder.builder()
+                .name(uploadRequest.getFileName())
+                .parent(cloudStorageMetadata.getFolderId())
+                .mimeType(uploadRequest.getFileType()).build();
+    }
+
+    private Permission setPermissionsToFile(Drive drive, File file) throws IOException {
+        Permission permission = new Permission().setType(CloudStorageConstants.GoogleConstants.Access.anyone).setRole(CloudStorageConstants.GoogleConstants.Role.reader);
+        return drive.permissions().create(file.getId(), permission).setFields(Fields.id).execute();
+    }
+
 }

@@ -6,9 +6,20 @@ package com.gj4.chhabi.ext.commons;
  */
 public interface CloudStorageConstants {
     interface GoogleConstants {
-        String id = "id";
-        String name = "name";
-        String webContentLink = "webContentLink";
-        String webViewLink = "webViewLink";
+        interface Fields {
+            String id = "id";
+            String name = "name";
+            String webContentLink = "webContentLink";
+            String webViewLink = "webViewLink";
+        }
+        interface Role {
+            String writer = "writer";
+            String reader = "reader";
+
+        }
+        interface Access {
+            String user = "user";
+            String anyone = "anyone";
+        }
     }
 }
