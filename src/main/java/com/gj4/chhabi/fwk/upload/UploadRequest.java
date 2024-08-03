@@ -3,6 +3,7 @@ package com.gj4.chhabi.fwk.upload;
 import com.gj4.chhabi.ext.commons.MimeType;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * @author Krunal Lukhi
@@ -10,16 +11,17 @@ import java.io.File;
  */
 public class UploadRequest {
 
-    private File file;
+    private InputStream inputStream;
     private String fileName;
     private MimeType fileType;
+    private File file;
 
-    public File getFile() {
-        return file;
+    public InputStream getInputStream() {
+        return inputStream;
     }
 
-    public void setFile(File file) {
-        this.file = file;
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 
     public String getFileName() {
@@ -36,5 +38,13 @@ public class UploadRequest {
 
     public void setFileType(MimeType fileType) {
         this.fileType = fileType;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }
