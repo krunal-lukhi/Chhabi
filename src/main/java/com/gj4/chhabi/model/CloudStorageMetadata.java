@@ -7,18 +7,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @since 7/28/2024
  */
 @Document
-public class DriveInfo extends BaseEntity implements MongoEntity {
+public class CloudStorageMetadata extends BaseEntity implements MongoEntity {
 
-    private String driveProvider;
+    private String provider;
     private String url;
     private double size;
+    private String apiKey;
 
-    public String getDriveProvider() {
-        return driveProvider;
+    public String getProvider() {
+        return provider;
     }
 
-    public void setDriveProvider(String driveProvider) {
-        this.driveProvider = driveProvider;
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
     public String getUrl() {
@@ -35,5 +36,13 @@ public class DriveInfo extends BaseEntity implements MongoEntity {
 
     public void setSize(double size) {
         this.size = size;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }

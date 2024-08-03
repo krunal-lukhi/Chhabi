@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @EnableWebSecurity
+
 public class SecurityConfig {
 
     @Bean
@@ -23,15 +24,5 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
         );
         return http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable()).build();
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("*").allowedOrigins("http://localhost:5173");
-            }
-        };
     }
 }
