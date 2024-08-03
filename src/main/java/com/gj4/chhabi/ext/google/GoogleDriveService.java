@@ -65,12 +65,14 @@ public class GoogleDriveService implements CloudStorageService {
     private UploadResponse convertToResponse(File file, Permission permission) {
         UploadResponse uploadResponse = new UploadResponse();
         uploadResponse.setIdentifier(file.getId());
+        uploadResponse.setUrl(file.getWebViewLink());
+        uploadResponse.setSize(file.getSize());
         return uploadResponse;
     }
 
     private File createFile(Drive drive, File fileMetadata, FileContent fileContent) throws IOException {
         return drive.files().create(fileMetadata, fileContent)
-                .setFields(joinKeys(UniversalConstants.COMMA, id, name, webContentLink, webViewLink))
+                .setFields(joinKeys(UniversalConstants.COMMA, id, name, size, webContentLink, webViewLink))
                 .execute();
     }
 

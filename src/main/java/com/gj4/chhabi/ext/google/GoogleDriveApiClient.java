@@ -30,7 +30,7 @@ public class GoogleDriveApiClient {
      */
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials.json";
 
     private static Credential getCredentials()
             throws IOException {

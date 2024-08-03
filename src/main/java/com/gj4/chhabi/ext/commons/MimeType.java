@@ -8,7 +8,10 @@ public enum MimeType {
     JPEG ("image/jpeg"),
     PNG("image/png"),
     MP4("video/mp4"),
-    FOLDER("application/vnd.google-apps.folder");
+    FOLDER("application/vnd.google-apps.folder"),
+    TEXT("text/plain"),
+    HEIF("image/heif"),
+    HEIC("image/heic");
     private final String type;
 
     MimeType(String type) {

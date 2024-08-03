@@ -28,13 +28,14 @@ public class TaggedImageService {
     public void processImage(Set<String> tags, MultipartFile file) {
         UploadRequest uploadReqeust = convertToUploadReqeust(file);
         UploadResponse uploadResponse = smartCloudStorageService.upload(uploadReqeust);
-        TaggedImage taggedImage = buildTaggedImage(tags, uploadResponse.getUrl());
+        TaggedImage taggedImage = buildTaggedImage(tags, uploadResponse);
         elasticSearchService.create(taggedImage);
     }
 
-    private TaggedImage buildTaggedImage(Set<String> tags, String url) {
+    private TaggedImage buildTaggedImage(Set<String> tags, UploadResponse uploadResponse) {
         TaggedImage image = new TaggedImage();
-        image.setImageUrl(url);
+        image.setImageUrl(uploadResponse.getUrl());
+        image.setImageId(uploadResponse.getIdentifier());
         image.setTags(tags);
         return image;
     }
