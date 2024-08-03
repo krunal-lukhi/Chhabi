@@ -10,9 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CloudStorageMetadata extends BaseEntity implements MongoEntity {
 
     private String provider;
-    private String url;
-    private double size;
-    private String apiKey;
+    private String folderId;
+    private double totalSize;
+    private double remainingSpace;
 
     public String getProvider() {
         return provider;
@@ -22,27 +22,32 @@ public class CloudStorageMetadata extends BaseEntity implements MongoEntity {
         this.provider = provider;
     }
 
-    public String getUrl() {
-        return url;
+    public String getFolderId() {
+        return folderId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setFolderId(String folderId) {
+        this.folderId = folderId;
     }
 
-    public double getSize() {
-        return size;
+    public double getTotalSize() {
+        return totalSize;
     }
 
-    public void setSize(double size) {
-        this.size = size;
+    public void setTotalSize(double totalSize) {
+        this.totalSize = totalSize;
     }
 
-    public String getApiKey() {
-        return apiKey;
+    public double getRemainingSpace() {
+        return remainingSpace;
     }
 
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
+    public void setRemainingSpace(double remainingSpace) {
+        this.remainingSpace = remainingSpace;
+    }
+
+    public interface Fields {
+        String provider = "provider";
+        String remainingSpace = "remainingSpace";
     }
 }

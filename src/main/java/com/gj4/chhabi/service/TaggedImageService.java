@@ -18,16 +18,16 @@ import java.util.Set;
 @Service
 public class TaggedImageService {
     private final ElasticSearchService<TaggedImage> elasticSearchService;
-    private final UploadService uploadService;
+    private final SmartCloudStorageService smartCloudStorageService;
 
-    public TaggedImageService(ElasticSearchServiceFactory elasticSearchServiceFactory, UploadService uploadService) {
-        this.uploadService = uploadService;
+    public TaggedImageService(ElasticSearchServiceFactory elasticSearchServiceFactory, SmartCloudStorageService smartCloudStorageService) {
+        this.smartCloudStorageService = smartCloudStorageService;
         this.elasticSearchService = elasticSearchServiceFactory.lookup(TaggedImage.class);
     }
 
     public void processImage(Set<String> tags, MultipartFile file) {
         UploadRequest uploadReqeust = convertToUploadReqeust(file);
-        UploadResponse uploadResponse = uploadService.upload(uploadReqeust);
+        UploadResponse uploadResponse = smartCloudStorageService.upload(uploadReqeust);
         TaggedImage taggedImage = buildTaggedImage(tags, uploadResponse.getUrl());
         elasticSearchService.create(taggedImage);
     }

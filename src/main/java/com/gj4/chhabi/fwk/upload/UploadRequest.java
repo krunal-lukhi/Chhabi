@@ -1,5 +1,7 @@
 package com.gj4.chhabi.fwk.upload;
 
+import com.gj4.chhabi.ext.commons.MimeType;
+
 import java.io.File;
 
 /**
@@ -10,7 +12,7 @@ public class UploadRequest {
 
     private File file;
     private String fileName;
-    private String fileType;
+    private MimeType fileType;
 
     public File getFile() {
         return file;
@@ -28,11 +30,11 @@ public class UploadRequest {
         this.fileName = fileName;
     }
 
-    public String getFileType() {
+    public MimeType getFileType() {
         return fileType;
     }
 
-    public void setFileType(String fileType) {
+    public void setFileType(MimeType fileType) {
         this.fileType = fileType;
     }
 }

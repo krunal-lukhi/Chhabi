@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import java.util.List;
+
 /**
  * @author TedaMeda
  * @since 7/28/2024
@@ -53,6 +55,15 @@ public class MongoService<T extends MongoEntity> implements CrudService<T> {
         Query query = Query.query(Criteria.where(BaseEntity.ID).is(id));
         mongoTemplate.remove(query, clazz);
     }
+
+    public List<T> search(Query query) {
+        MongoTemplate mongoTemplate = mongoTemplateFactory.getTemplate();
+        return mongoTemplate.find(query, clazz);
+    }
+
+    /***********************************************************************************************************
+     *                                           PRIVATE METHODS                                                                            *
+     ***********************************************************************************************************/
 
     private String getCollection(Document document) {
         String collectionName = document.collection();

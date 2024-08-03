@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @since 28/07/24
  */
 @Service
-public class GoogleClientFactory implements SmartCloudStorageClientFactory<Drive> {
+public class GoogleClientFactory implements CloudStorageClientFactory<Drive> {
 
     private final MongoService<CloudStorageMetadata> driveInfoMongoService;
     private Drive drive;

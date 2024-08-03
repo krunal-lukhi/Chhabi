@@ -8,6 +8,7 @@ public class UploadResponse {
 
     private String url;
     private String identifier;
+    private double size;
 
     public UploadResponse() {
     }
@@ -32,4 +33,11 @@ public class UploadResponse {
         this.identifier = identifier;
     }
 
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
 }

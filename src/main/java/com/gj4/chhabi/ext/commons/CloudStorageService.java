@@ -2,6 +2,7 @@ package com.gj4.chhabi.ext.commons;
 
 import com.gj4.chhabi.fwk.upload.UploadRequest;
 import com.gj4.chhabi.fwk.upload.UploadResponse;
+import com.gj4.chhabi.model.CloudStorageMetadata;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import java.io.IOException;
 public interface CloudStorageService {
 
     UploadResponse uploadFile(UploadRequest uploadRequest) throws IOException;
+
+    UploadResponse uploadFile(UploadRequest uploadRequest, CloudStorageMetadata cloudStorageMetadata) throws IOException;
 
     String storageProvider();
 }
