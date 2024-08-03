@@ -1,6 +1,7 @@
 package com.gj4.chhabi.fwk.mongo;
 
 import com.gj4.chhabi.fwk.FwkUtils;
+import com.gj4.chhabi.fwk.crud.CrudService;
 import com.gj4.chhabi.model.BaseEntity;
 import com.gj4.chhabi.model.MongoEntity;
 import com.gj4.chhabi.util.ChhabiStringUtils;
@@ -15,7 +16,7 @@ import org.springframework.data.mongodb.core.query.Query;
  * @since 7/28/2024
  */
 
-public class MongoService<T extends MongoEntity> {
+public class MongoService<T extends MongoEntity> implements CrudService<T> {
     private final MongoTemplateFactory mongoTemplateFactory;
     private final Class<T> clazz;
 
