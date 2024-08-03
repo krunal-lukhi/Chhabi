@@ -1,8 +1,10 @@
 package com.gj4.chhabi.rest;
 
 import com.gj4.chhabi.service.TaggedImageService;
-import org.springframework.data.annotation.AccessType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
@@ -22,8 +24,9 @@ public class ImageController {
     }
 
     @PostMapping(path = "/upload")
-    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("tags") Set<String> tags) {
+    public String upload(@RequestParam("file") MultipartFile file, @RequestParam("tags") Set<String> tags) {
         taggedImageService.processImage(tags, file);
+        return "Success";
     }
 
 }
