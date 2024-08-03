@@ -4,11 +4,11 @@ import com.gj4.chhabi.fwk.elasticsearch.ElasticSearchService;
 import com.gj4.chhabi.fwk.elasticsearch.ElasticSearchServiceFactory;
 import com.gj4.chhabi.fwk.upload.UploadRequest;
 import com.gj4.chhabi.fwk.upload.UploadResponse;
-import com.gj4.chhabi.fwk.upload.UploadService;
 import com.gj4.chhabi.model.TaggedImage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +32,10 @@ public class TaggedImageService {
         elasticSearchService.create(taggedImage);
     }
 
+    public List<TaggedImage> getAllImages() {
+        return elasticSearchService.findAll();
+    }
+
     private TaggedImage buildTaggedImage(Set<String> tags, UploadResponse uploadResponse) {
         TaggedImage image = new TaggedImage();
         image.setImageUrl(uploadResponse.getUrl());
@@ -50,7 +54,7 @@ public class TaggedImageService {
             uploadRequest.setFileName(file.getName());
             uploadRequest.setInputStream(file.getInputStream());
             return uploadRequest;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
