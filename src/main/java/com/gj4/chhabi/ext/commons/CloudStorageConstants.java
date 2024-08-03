@@ -11,6 +11,7 @@ public interface CloudStorageConstants {
             String name = "name";
             String webContentLink = "webContentLink";
             String webViewLink = "webViewLink";
+            String size = "size";
         }
         interface Role {
             String writer = "writer";
