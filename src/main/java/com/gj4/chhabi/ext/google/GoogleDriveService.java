@@ -88,7 +88,7 @@ public class GoogleDriveService extends AbstractCloudStorageService {
         return FileBuilder.builder()
                 .name(uploadRequest.getFileName())
                 .parent(cloudStorageMetadata.getFolderId())
-                .mimeType(uploadRequest.getFileType()).build();
+                .build();
     }
 
     private Permission setPermissionsToFile(Drive drive, File file) throws IOException {
