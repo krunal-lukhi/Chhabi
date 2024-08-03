@@ -45,6 +45,13 @@ public class TaggedImageService {
      ***********************************************************************************************************/
 
     private UploadRequest convertToUploadReqeust(MultipartFile file) {
-        return null;
+        try {
+            UploadRequest uploadRequest = new UploadRequest();
+            uploadRequest.setFileName(file.getName());
+            uploadRequest.setInputStream(file.getInputStream());
+            return uploadRequest;
+        } catch (Exception ex){
+            throw new RuntimeException(ex);
+        }
     }
 }
