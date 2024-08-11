@@ -2,6 +2,8 @@ package com.gj4.chhabi.fwk.elasticsearch;
 
 import com.gj4.chhabi.fwk.FwkUtils;
 import com.gj4.chhabi.fwk.crud.CrudService;
+import com.gj4.chhabi.fwk.search.ElasticSearchRequestAdapter;
+import com.gj4.chhabi.fwk.search.Request;
 import com.gj4.chhabi.model.ESEntity;
 import com.gj4.chhabi.util.ChhabiStringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -69,4 +71,17 @@ public class ElasticSearchService<T extends ESEntity> implements CrudService<T> 
         return Collections.emptyList();
     }
 
+    public List<T> search(Request request) {
+        ElasticSearchRequestAdapter instance = ElasticSearchRequestAdapter.getInstance();
+        Query query = instance.adapt(request);
+        ElasticsearchTemplate template = elasticSearchTemplateFactory.getTemplate();
+        Document annotation = AnnotationUtils.findAnnotation(clazz, Document.class);
+        SearchHits<T> search = template.search(query, clazz, IndexCoordinates.of(annotation.indexName()));
+        List<SearchHit<T>> searchHits = search.getSearchHits();
+        if (searchHits != null) {
+            List<T> results = searchHits.stream().map(t -> t.getContent()).collect(Collectors.toList());
+            return results;
+        }
+        return Collections.emptyList();
+    }
 }
