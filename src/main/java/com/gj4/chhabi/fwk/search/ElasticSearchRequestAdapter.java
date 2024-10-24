@@ -8,6 +8,8 @@ import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.data.elasticsearch.core.query.Order;
 import org.springframework.data.elasticsearch.core.query.Query;
 
+import java.util.List;
+
 /**
  * @author Krunal Lukhi
  * @since 11/08/24
@@ -67,7 +69,51 @@ public class ElasticSearchRequestAdapter {
     }
 
     private void addFilters(CriteriaQuery criteriaQuery, Request request) {
-
+        List<Filter> filters = request.getFilters();
+        for (Filter filter : filters) {
+            Criteria criteria = createCriteria(filter);
+            criteriaQuery.addCriteria(criteria);
+        }
     }
 
+    private Criteria createCriteria(Filter filter) {
+        Criteria criteria = null;
+        switch (filter.getFilterType()){
+            case IN -> {
+                criteria = Criteria.where(filter.getField()).in(filter.getValues());
+            }
+            case IS -> {
+                criteria = Criteria.where(filter.getField()).is(filter.getValues().get(0));
+            }
+            case NIN -> {
+                criteria = Criteria.where(filter.getField()).notIn(filter.getValues());
+            }
+            case NOT -> {
+                criteria = Criteria.where(filter.getField()).not().is(filter.getValues().get(0));
+            }
+            case AND -> {
+                for(Filter nestedFilter:filter.getFilters()){
+                    if(criteria==null){
+                        criteria=new Criteria();
+                    }
+                    criteria = criteria.and(createCriteria(nestedFilter));
+                }
+            }
+            case OR -> {
+                for(Filter nestedFilter:filter.getFilters()){
+                    if(criteria==null){
+                        criteria=new Criteria();
+                    }
+                    criteria = criteria.or(createCriteria(nestedFilter));
+                }
+            }
+            case EXITS -> {
+                criteria = Criteria.where(filter.getField()).exists();
+            }
+            case DOES_NOT_EXISTS -> {
+                criteria = Criteria.where(filter.getField()).not().exists();
+            }
+        }
+        return criteria;
+    }
 }
